@@ -1,0 +1,2 @@
+@media(max-width:900px){.hero,.split,.pd,.cg,.shop{grid-template-columns:1fr}.ben{grid-template-columns:1fr 1fr}.fgrid{grid-template-columns:1fr}.burger{display:block}nav{display:none;position:absolute;top:68px;left:0;right:0;background:var(--iv);flex-direction:column;padding:16px 24px;gap:12px;border-bottom:1px solid #e4ddd2}nav.open{display:flex}.stats,.three{grid-template-columns:1fr}.hero{min-height:0}.gal{flex-direction:column-reverse}.th{flex-direction:row}}
+@media(max-width:480px){.grid{grid-template-columns:1fr 1fr;gap:12px}.btn{padding:12px 20px}}

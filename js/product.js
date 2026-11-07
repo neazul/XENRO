@@ -1,0 +1,14 @@
+const id=+new URLSearchParams(location.search).get('id')||1,p=PRODUCTS.find(x=>x.id==id)||PRODUCTS[0];
+$('#pn').textContent=p.name;$('#pp').textContent='$'+p.price.toFixed(2);$('#po').textContent='$'+p.old.toFixed(2);$('#pr').textContent=stars(p.rating)+' '+p.rating+' (2.5k reviews)';$('#pd').textContent=p.desc;
+const imgs=[p.img,...['p1','p2','p3','p4'].filter(x=>x!=p.img).slice(0,3)];
+$('#th').innerHTML=imgs.map((i,k)=>`<img src="assets/products/${i}.jpg" alt="" class="${k?'':'on'}" data-i="${i}">`).join('');
+const show=i=>{$('#big').src=`assets/products/${i}.jpg`;$('#big').alt=p.name};show(imgs[0]);
+$('#th').onclick=e=>{const i=e.target.dataset.i;if(!i)return;$$('#th img').forEach(x=>x.classList.toggle('on',x==e.target));show(i)};
+let q=1,size='M',color='Black';const sel=(s,cb)=>$$(s+' button').forEach((b,k)=>b.onclick=()=>{$$(s+' button').forEach(x=>x.classList.remove('on'));b.classList.add('on');cb(b,k)});
+sel('#ss',b=>size=b.textContent);sel('#cs',(b,k)=>color=['Black','Taupe','Beige'][k]);
+$('#m').onclick=()=>$('#q').textContent=q=Math.max(1,q-1);$('#pl').onclick=()=>$('#q').textContent=++q;
+$('#add').onclick=()=>addCart(p.id,q,size,color);$('#buy').onclick=()=>{addCart(p.id,q,size,color);toast('Demo checkout: no payment taken')};
+const wl=$('#wl'),wt=()=>wl.textContent=(wish.includes(p.id)?'♥ In Wishlist':'♡ Add to Wishlist');wt();wl.onclick=()=>{toggleWish(p.id);wt()};
+const T={d:p.desc+' Designed for comfort, built for style.',s:'S: chest 96cm · M: 102cm · L: 108cm · XL: 114cm · XXL: 120cm. Oversized fit: size down for a closer cut.',r:'4.8 average from 2,500 customers. Customers mention the fabric weight and fit most.'};
+const tx=k=>$('#ptxt').textContent=T[k];tx('d');$$('#ptabs button').forEach(b=>b.onclick=()=>{$$('#ptabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');tx(b.dataset.t)});
+$('#rel').innerHTML=PRODUCTS.filter(x=>x.id!=p.id).slice(0,4).map(card).join('');
